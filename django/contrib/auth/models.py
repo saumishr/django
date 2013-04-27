@@ -242,6 +242,12 @@ class User(models.Model):
     is_active = models.BooleanField(_('active'), default=True,
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
+    num_likes = models.IntegerField(_('num_likes'), default=0,
+        help_text=_('Total number of Appreciations'))
+    num_dislikes = models.IntegerField(_('num_dislikes'), default=0,
+        help_text=_('Total number of dislikes'))
+    num_views = models.IntegerField(_('num_views'), default=0,
+        help_text=_('Total number of dislikes'))
     is_superuser = models.BooleanField(_('superuser status'), default=False,
         help_text=_('Designates that this user has all permissions without '
                     'explicitly assigning them.'))
