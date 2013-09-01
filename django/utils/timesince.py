@@ -17,12 +17,12 @@ def timesince(d, now=None, reversed=False):
     Adapted from http://blog.natbat.co.uk/archive/2003/Jun/14/time_since
     """
     chunks = (
-      (60 * 60 * 24 * 365, lambda n: ungettext('year', 'years', n)),
-      (60 * 60 * 24 * 30, lambda n: ungettext('month', 'months', n)),
-      (60 * 60 * 24 * 7, lambda n : ungettext('week', 'weeks', n)),
-      (60 * 60 * 24, lambda n : ungettext('day', 'days', n)),
-      (60 * 60, lambda n: ungettext('hour', 'hours', n)),
-      (60, lambda n: ungettext('minute', 'minutes', n))
+      (60 * 60 * 24 * 365, lambda n: ungettext('y', 'y', n)),
+      (60 * 60 * 24 * 30, lambda n: ungettext('m', 'm', n)),
+      (60 * 60 * 24 * 7, lambda n : ungettext('w', 'w', n)),
+      (60 * 60 * 24, lambda n : ungettext('d', 'd', n)),
+      (60 * 60, lambda n: ungettext('h', 'h', n)),
+      (60, lambda n: ungettext('m', 'm', n))
     )
     # Convert datetime.date to datetime.datetime for comparison.
     if not isinstance(d, datetime.datetime):
@@ -38,18 +38,18 @@ def timesince(d, now=None, reversed=False):
     since = delta.days * 24 * 60 * 60 + delta.seconds
     if since <= 0:
         # d is in the future compared to now, stop processing.
-        return u'0 ' + ugettext('minutes')
+        return u'0' + ugettext('m')
     for i, (seconds, name) in enumerate(chunks):
         count = since // seconds
         if count != 0:
             break
-    s = ugettext('%(number)d %(type)s') % {'number': count, 'type': name(count)}
+    s = ugettext('%(number)d%(type)s') % {'number': count, 'type': name(count)}
     if i + 1 < len(chunks):
         # Now get the second item
         seconds2, name2 = chunks[i + 1]
         count2 = (since - (seconds * count)) // seconds2
         if count2 != 0:
-            s += ugettext(', %(number)d %(type)s') % {'number': count2, 'type': name2(count2)}
+            s += ugettext(', %(number)d%(type)s') % {'number': count2, 'type': name2(count2)}
     return s
 
 def timeuntil(d, now=None):
